@@ -1,111 +1,72 @@
+```markdown
 # 🎧 Model Card: Music Recommender Simulation
 
 ## 1. Model Name  
 
-Give your model a short, descriptive name.  
-Example: **VibeFinder 1.0**  
+**MusicMatch 1.0**
 
 ---
 
 ## 2. Intended Use  
 
-Describe what your recommender is designed to do and who it is for. 
-
-Prompts:  
-
-- What kind of recommendations does it generate  
-- What assumptions does it make about the user  
-- Is this for real users or classroom exploration  
+This recommender is designed to generate song recommendations based on a user’s preferred genre, mood, and energy level. It assumes that the preferences entered by the user accurately represent the type of music they want to hear. This model was created for classroom exploration and is not intended for real-world use.
 
 ---
 
 ## 3. How the Model Works  
 
-Explain your scoring approach in simple language.  
+The model uses each song’s genre, mood, and energy level to calculate a recommendation score. The user provides a preferred genre, preferred mood, and target energy level.
 
-Prompts:  
+A song receives 2 points when its genre matches the user’s preferred genre. It receives 1 point when its mood matches the user’s preferred mood. It can also receive up to 1 point depending on how close its energy level is to the user’s target energy.
 
-- What features of each song are used (genre, energy, mood, etc.)  
-- What user preferences are considered  
-- How does the model turn those into a score  
-- What changes did you make from the starter logic  
-
-Avoid code here. Pretend you are explaining the idea to a friend who does not program.
+After every song is scored, the model sorts the songs from highest to lowest score and returns the top five recommendations. I changed the starter logic by adding CSV loading, score calculations, ranking, and explanations for each recommendation.
 
 ---
 
 ## 4. Data  
 
-Describe the dataset the model uses.  
+The model uses a catalog of 10 songs. The genres represented include pop, lofi, rock, ambient, jazz, synthwave, and indie pop. The moods represented include happy, chill, intense, relaxed, moody, and focused.
 
-Prompts:  
-
-- How many songs are in the catalog  
-- What genres or moods are represented  
-- Did you add or remove data  
-- Are there parts of musical taste missing in the dataset  
+I did not add or remove songs from the starter dataset. The dataset is missing parts of musical taste such as lyrics, language, release year, favorite artists, listening history, likes, skipped songs, and playlist activity.
 
 ---
 
 ## 5. Strengths  
 
-Where does your system seem to work well  
+The system works well for users who have clear genre, mood, and energy preferences. It correctly ranks songs higher when they match the user’s preferred genre and mood while also having a similar energy level.
 
-Prompts:  
-
-- User types for which it gives reasonable results  
-- Any patterns you think your scoring captures correctly  
-- Cases where the recommendations matched your intuition  
+The recommendations matched my expectations during testing. The High-Energy Pop profile ranked pop songs highly, the Chill Lofi profile ranked lofi songs highly, and the Intense Rock profile ranked the rock song first.
 
 ---
 
-## 6. Limitations and Bias 
+## 6. Limitations and Bias  
 
-Where the system struggles or behaves unfairly. 
+The system does not consider lyrics, language, artists, listening history, tempo preferences, valence, danceability, or user feedback. Some genres and moods are underrepresented because they only appear once, while lofi and chill appear multiple times.
 
-Prompts:  
-
-- Features it does not consider  
-- Genres or moods that are underrepresented  
-- Cases where the system overfits to one preference  
-- Ways the scoring might unintentionally favor some users  
+The system may favor genre too heavily because a genre match receives more points than mood or energy similarity. Users whose favorite genres appear more often in the dataset may receive more suitable and varied recommendations than users whose preferred genres are missing or underrepresented.
 
 ---
 
 ## 7. Evaluation  
 
-How you checked whether the recommender behaved as expected. 
+I tested the recommender using three user profiles: High-Energy Pop, Chill Lofi, and Intense Rock. I checked whether songs with matching genres and moods ranked near the top and whether their energy levels were close to the user’s target.
 
-Prompts:  
-
-- Which user profiles you tested  
-- What you looked for in the recommendations  
-- What surprised you  
-- Any simple tests or comparisons you ran  
-
-No need for numeric metrics unless you created some.
+I also used automated tests to confirm that the recommendations were sorted correctly and that each recommendation had a non-empty explanation. One surprising result was that songs without matching genres or moods could still rank reasonably well when their energy levels were close to the user’s target.
 
 ---
 
 ## 8. Future Work  
 
-Ideas for how you would improve the model next.  
+Future versions could include tempo, valence, danceability, acousticness, favorite artists, listening history, likes, and skipped songs in the scoring process. The recommendation explanations could also show a clearer breakdown of matching and nonmatching features.
 
-Prompts:  
-
-- Additional features or preferences  
-- Better ways to explain recommendations  
-- Improving diversity among the top results  
-- Handling more complex user tastes  
+Recommendation diversity could be improved by limiting repeated genres or artists in the top results. The model could also support multiple favorite genres and moods and allow users to choose how important each preference is.
 
 ---
 
 ## 9. Personal Reflection  
 
-A few sentences about your experience.  
+I learned that recommender systems compare user preferences with item features and use scoring rules to rank possible choices. I also learned that small changes in feature weights can significantly change the recommendation order.
 
-Prompts:  
+It was interesting to see how a simple algorithm could still produce recommendations that felt personalized. This project changed how I think about music recommendation apps because real applications likely use much larger datasets, more user behavior, and more advanced algorithms.
+```
 
-- What you learned about recommender systems  
-- Something unexpected or interesting you discovered  
-- How this changed the way you think about music recommendation apps  
